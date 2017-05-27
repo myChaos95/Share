@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons end>
+  	<button ion-button icon-button icon-only>
+  		<ion-icon name='settings'></ion-icon>
+  	</button>
+    </ion-buttons>
+    <ion-title>我的</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-item class='noPadding' (click)='goPersonPage($event)'>
+		<img [src]='user.uImg' class="userImg bigImg roundImg">
+		<span class="name">{{user.uName}}</span>
+		<span class="edit">
+			<ion-icon name='ios-create-outline'></ion-icon>
+		</span>
+	</ion-item>
+	<div class="divider"></div>
+	<ion-list>
+		<button ion-item *ngFor='let list of mine_list' class='padding' (click)='viewMineList(list)'>
+			<ion-icon [name]='list.icon' [ngStyle]='{"color":list.color}'></ion-icon>
+			<span class="title">{{list.title}}</span>
+			<span class="gray" item-end>{{list.count}}</span>
+		</button>
+	</ion-list>
+	<div class="divider"></div>
+	<ion-item class='noPadding'>
+		<ion-label class='start'>
+			<ion-icon name='moon'></ion-icon>
+			<span class="title">夜间模式</span>
+		</ion-label>
+		<ion-toggle></ion-toggle>
+	</ion-item>
+</ion-content>

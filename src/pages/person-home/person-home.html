@@ -1,0 +1,41 @@
+<ion-content>
+	<ion-item class='itemBorder' [ngStyle]="{'background': bgImg}">
+		<ion-icon name='md-arrow-back' item-left class='back' (click)='goBack()'></ion-icon>
+		<img [src]="user.uImg" class="userImg roundImg bigImg myImg">
+		<ion-icon name='md-more' item-right class='more'></ion-icon>
+		<div class="info">
+			<h2>{{user.uName}}</h2>
+			<p> <span (click)='goLoves()'> 关注 {{uLoveNum}} </span> <span class="divi">|</span> <span (click)='goFans()'> 喜欢 {{uFansNum}} </span></p>
+			<p class="introduction"> 简介： {{user.uInfo || "暂无介绍"}} </p>
+		</div>
+	</ion-item>
+	<ion-segment [(ngModel)]='poh'>
+      <ion-segment-button value="photos">
+        相册
+      </ion-segment-button>
+      <ion-segment-button value="heart">
+        随笔
+      </ion-segment-button>
+    </ion-segment>
+    <div [ngSwitch]='poh' class="padding">
+    		<div *ngSwitchCase='"photos"' class="photos" (click)='showImg($event)'>
+    			<img [src]='img' *ngFor='let img of images; let i = index; ' [attr.index]='i'> 
+    		</div>
+    		<div *ngSwitchCase='"heart"'> 
+    			<button ion-item *ngFor='let w of writings' (tap)='goDetail(w)' class='noPadding'>
+			    <ion-thumbnail item-right>
+			      <img [src]="w.wImg" *ngIf='w.wImg'>
+			    </ion-thumbnail>
+			    <img [src]='user.uImg' class='userImg roundImg'>
+			    <span class="name">{{user.uName}} <span class="gray">{{w.wTime.substr(5,12)}}</span> </span>
+			    <h1>{{w.wTitle}}</h1>
+			    <p class='gray'>评论 {{w.conCount}}  . 喜欢 {{w.loveCount}}</p>
+			</button>
+    		</div>
+    </div>
+</ion-content>
+<ion-slides class='imgContainer' (click)='hideImg()' *ngIf='active' #imgC>
+	<ion-slide *ngFor='let img of images'>	
+		<img [src]='img'>
+	</ion-slide>
+</ion-slides>

@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>我的文章</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+	<button ion-item *ngFor='let w of myWritings' (click)='goDetail(w)' class='noPadding'>
+	    <ion-thumbnail item-right>
+	      <img [src]="w.wImg" *ngIf='w.wImg'>
+	    </ion-thumbnail>
+	    <img [src]='user.uImg' class='userImg roundImg'>
+	    <span class="name">{{user.uName}} <span class="gray">{{w.wTime.substr(5,10)}}</span> </span>
+	    <h1>{{w.wTitle}}</h1>
+	    <p class='gray'>评论 {{w.conCount}}  . 喜欢 {{w.loveCount}}</p>
+	</button>
+</ion-content>

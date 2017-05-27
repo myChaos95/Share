@@ -1,0 +1,35 @@
+page-new-writings {
+	.w_title {
+		font-size: 18px;
+		text-align: center;
+		border-bottom: 1px dotted #ccc;
+		padding-left: 0;
+	}
+	.w_content {
+		width: 100%;
+		resize: none;
+		border: none;
+		min-height: 100vh;
+		padding: 10px 20px;
+		font-size: 16px;
+	}
+	.toolbar-title {
+		padding: 0;
+	}
+	.tool {
+		display: flex;
+		font-size: 20px;
+		position: fixed;
+		bottom: 0;
+		height: 50px;
+		background: #edeff0;
+		width: 100vw;
+		justify-content: space-around;
+		align-items: center;
+	}
+	.wImg {
+		width: 100%;
+		height: auto;
+		border-radius: 0;
+	}
+}

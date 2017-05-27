@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+  	<ion-buttons end>
+  		<button ion-button icon-button icon-only>
+  			<ion-icon name='more'></ion-icon>
+  		</button>
+  	</ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-item class='myItem' (click)='goPersonHome($event)'> 
+	    <ion-thumbnail item-left class='ion-th'>
+	      <img [src]='user.uImg' class='roundImg'>
+	    </ion-thumbnail>
+	    <h2>{{user.uName}}</h2>
+	    <p>{{writings.wTime}}</p>
+	    <span ion-button icon-button icon-left item-right *ngIf='!isGuanzhu && !isLoading'>
+	    	  <span style="font-size: 18px;margin-right: 3px;">+</span> 关注
+	    </span>
+	    <span ion-button icon-button icon-left item-right *ngIf='isGuanzhu && !isLoading'>
+	    	  已关注
+	    </span>
+	    <ion-spinner name='ios' *ngIf='isLoading' item-right></ion-spinner>
+	</ion-item>
+
+	<h1 class="title">{{writings.wTitle}}</h1>
+	<img [src]='writings.wImg' *ngIf='writings.wImg' class="img">
+	<div class="content">
+		{{writings.wContent}}
+	</div>
+</ion-content>

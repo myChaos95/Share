@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>我的收藏</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+	<button ion-item class='noPadding' *ngFor='let w of myLoveWritings' (click)='goDetail(w)'>
+	    <ion-thumbnail item-right>
+	      <img [src]='w.wImg'>
+	    </ion-thumbnail>
+	    <img class='userImg roundImg' [src]='w.autor.uImg'>
+	    <span class="name"> {{w.autor.uName}}<span class="gray">{{w.wTime}}</span> </span>
+	    <h1></h1>
+	    <p class='gray'>评论 {{w.conCount}}  . 喜欢 {{w.loveCount}}</p>
+	</button>
+</ion-content>

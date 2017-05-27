@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons end>
+    	  <button ion-button clear color='danger' (click)='makeChange()'>
+    	  	确定
+    	  </button>
+    </ion-buttons>
+    <ion-title>编辑简介</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+	<textarea class="introduction" [(ngModel)]='info' placeholder="用一段话介绍一下你自己吧"></textarea>
+</ion-content>

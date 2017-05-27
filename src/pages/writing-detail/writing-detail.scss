@@ -1,0 +1,19 @@
+page-writing-detail {
+	.title {
+		text-align: center;
+		font-size: 26px;
+	}
+	.content {
+		padding: 10px 20px;
+	}
+	.img {
+		width: 100%;
+		height: auto;
+	}
+	.myItem {
+		border-bottom: 1px solid #dedede;
+		.item-inner {
+			border-bottom: none !important;
+		}
+	}
+}

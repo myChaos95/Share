@@ -1,0 +1,30 @@
+page-welcome {
+	 ion-card {
+	    position: relative;
+	    text-align: center;
+	    width: 100vw !important;
+	    height: 100vh !important;
+	    margin: 0 !important;
+	    img {
+	    	height: 100% !important;
+	    	width: 100% !important;
+	    }
+	  }
+
+	  .card-title {
+	    position: absolute;
+	    top: 36%;
+	    font-size: 2.0em;
+	    width: 100%;
+	    font-weight: bold;
+	    color: #fff;
+	  }
+
+	  .card-subtitle {
+	    font-size: 1.5em;
+	    position: absolute;
+	    top: 52%;
+	    width: 100%;
+	    color: #fff;
+	  }
+}

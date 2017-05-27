@@ -1,0 +1,27 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title class='titleNopadding'>编辑个人资料</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+	<ion-list>
+		<ion-list-header>
+			<h1>常规设置</h1>
+		</ion-list-header>
+		<button ion-item class='padding' (click)='changeImg()'>
+			<span class="title">更换头像</span>
+			<img [src]='user.uImg' item-end class='userImg roundImg'>
+		</button>
+		<button ion-item class='padding' (click)='changeName()'>
+			<span class="title">更改昵称</span>
+			<span class="gray" item-end>{{user.uName}}</span>
+		</button>
+		<button ion-item class='noPadding border' (click)='changeInfo()'>
+			<span class="title">编辑个人简介</span>
+		</button>
+	</ion-list>
+</ion-content>

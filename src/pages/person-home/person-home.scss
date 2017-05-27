@@ -1,0 +1,70 @@
+page-person-home {
+	.itemBorder {
+		height: 180px;
+		align-items: flex-start;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	.back, .more {
+		color: #333;
+	}
+	.myImg {
+		position: absolute;
+		left: 50%;
+		top: 30px;
+		transform: translateX(-50%);
+		vertical-align: top;
+	}
+	.info {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 100%;
+		top: 100px;
+		text-align: center;
+	}
+	.divi {
+		font-size: 20px;
+		margin: 0 10px;
+	}
+	.introduction {
+	    text-overflow: ellipsis;
+	    overflow: hidden;
+	    white-space: nowrap;
+	    max-width: 200px;
+	    margin: auto;
+	}
+	.segment-button {
+		border-width: 0 0 1px 0 !important;
+	}
+	.photos {
+		display: flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+		img {
+			width: 30vw;
+			height: 30vw;
+			margin: 1.666vw;;
+		}
+	}
+	.gray {
+		font-size: 13px; vertical-align: text-top;
+	}
+	h1 {
+		font-size: 2.1rem !important; color: gray; margin: 10px 0 6px 0 !important;
+	}
+	.noPadding {
+		text-indent: 16px;
+	}
+	.imgContainer {
+		.swiper-slide {
+			background: #000;
+		}
+		img {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%,-50%);
+		}
+	}
+}

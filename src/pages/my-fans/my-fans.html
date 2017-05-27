@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+	<ion-item *ngFor='let fans of myFans' (click)='goPersonPage($event,fans)' class='itemBorder'>
+	    <ion-thumbnail item-left>
+	      <img [src]="fans.uImg" >
+	    </ion-thumbnail>
+	    <h2>{{fans.uName}}</h2>
+	    <p>{{fans.uInfo}}</p>
+	    <span class='bigIcon gray' item-right>
+	    	  <ion-icon name='yiaguanzhu' *ngIf='fans.isGuanzhu && !fans.loading'></ion-icon>
+	    	  <ion-icon name='jiaguanzhu' class='orange' *ngIf='!fans.isGuanzhu && !fans.loading'></ion-icon>
+	    	  <ion-spinner name='ios' *ngIf='fans.loading'></ion-spinner>
+	    </span>
+	</ion-item>
+  </ion-list>
+</ion-content>
