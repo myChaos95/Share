@@ -25,16 +25,18 @@ export class AppData {
 		{wID: 0, cID: 0,uID: 0, content: '', time: '', loveCount: 0}
 	];
 	// 获取文章列表
-	static getMyWritings(id) {
+	static getMyWritings(id, n?) {
 		let arr = [];
 		AppData.u_w.map( ret => {
 			if(ret.uID == id){
 				arr.push(ret.wID);
 			}
 		});
-		return AppData.writings.filter( ret => {
+		let ret =  AppData.writings.filter( ret => {
 			return arr.indexOf(ret.wID) != -1;
-		})
+		});
+		n = n || ret.length;
+		return ret.slice(0,n);
 	}
 	// 发布文章
 	static publicWrings(userID,title,content,wImg='',isPublic=true) {

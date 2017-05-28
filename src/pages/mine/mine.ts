@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { AppData } from '../../assets/data/app.data';
 import { Storage } from '@ionic/storage';
+import { NativeService } from '../../assets/providers/Native.Service';
 
 import { Login } from '../login/login';
 import { UserInfo } from '../user-info/user-info';
@@ -36,20 +37,20 @@ export class Mine {
   			return user.uID == id;
   		})
   	})
-    this.mine_list = [
-                {icon: 'paper', title: '我的文章', count: AppData.getMyWritings(this.user.uID).length, color: 'lightGreen', page: MyWritingsPage},
-        {icon: 'star', title: '我的关注', count: this.user.lovesID.length, color: 'blue',page: MyLovePersonPage},
-        {icon: 'home', title: '我的粉丝', count: AppData.getMyFans(this.user.uID).length, color: 'yellow',page: MyFansPage},
-        {icon: 'heart', title: '我的收藏', count: this.user.loves.length, color: 'red', page: MyLoveWritingsPage},
-    ];
   }
-  ionViewWillEnter() {
+ 
+  init(e?) {
       this.mine_list = [
-                {icon: 'paper', title: '我的文章', count: AppData.getMyWritings(this.user.uID).length, color: 'lightGreen', page: MyWritingsPage},
-        {icon: 'star', title: '我的关注', count: this.user.lovesID.length, color: 'blue',page: MyLovePersonPage},
-        {icon: 'home', title: '我的粉丝', count: AppData.getMyFans(this.user.uID).length, color: 'yellow',page: MyFansPage},
-        {icon: 'heart', title: '我的收藏', count: this.user.loves.length, color: 'red', page: MyLoveWritingsPage},
-    ];
+           {icon: 'paper', title: '我的文章', count: AppData.getMyWritings(this.user.uID).length, color: 'lightGreen', page: MyWritingsPage},
+          {icon: 'star', title: '我的关注', count: this.user.lovesID.length, color: 'blue',page: MyLovePersonPage},
+          {icon: 'home', title: '我的粉丝', count: AppData.getMyFans(this.user.uID).length, color: 'yellow',page: MyFansPage},
+          {icon: 'heart', title: '我的收藏', count: this.user.loves.length, color: 'red', page: MyLoveWritingsPage},
+      ];
+      NativeService.refreshComplete(e);
+  }
+
+  ionViewWillEnter() {
+      this.init();
   }
   // 进入更改个人用户信息
   editUserBaseInfo() {

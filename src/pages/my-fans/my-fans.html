@@ -6,6 +6,13 @@
 
 
 <ion-content>
+	<ion-refresher (ionRefresh)='init($event)'>
+	    <ion-refresher-content
+	      pullingIcon="arrow-dropdown"
+	      pullingText="Pull to refresh"
+	      refreshingSpinner="circles">
+	    </ion-refresher-content>
+	</ion-refresher>
   <ion-list>
 	<ion-item *ngFor='let fans of myFans' (click)='goPersonPage($event,fans)' class='itemBorder'>
 	    <ion-thumbnail item-left>

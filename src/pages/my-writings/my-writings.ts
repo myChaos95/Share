@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { AppData } from '../../assets/data/app.data';
+import { NativeService } from '../../assets/providers/Native.Service';
+
 import { WritingDetailPage } from '../writing-detail/writing-detail';
 
 @IonicPage()
@@ -18,8 +20,13 @@ export class MyWritingsPage {
   	  this.user = this.navParams.get('user');
   }
 
+  init(e?) {
+     this.myWritings = AppData.getMyWritings(this.user.uID);
+     NativeService.refreshComplete(e);
+  }
+
   ionViewWillEnter() {
-  	 this.myWritings = AppData.getMyWritings(this.user.uID);
+  	 this.init();
   }
 
   goDetail(wr) {

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { AppData } from '../../assets/data/app.data';
+import { NativeService } from '../../assets/providers/Native.Service';
+
 import { WritingDetailPage } from '../writing-detail/writing-detail';
 
 @IonicPage()
@@ -16,10 +18,15 @@ export class MyLoveWritingsPage {
   id;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
+
+  init(e?) {
+      this.myLoveWritings = AppData.getMyLoveWritings(this.id);
+      NativeService.refreshComplete(e);
+  }
   
   ionViewWillEnter() {
   	this.id = this.navParams.get('user').uID;
-  	this.myLoveWritings = AppData.getMyLoveWritings(this.id);
+  	this.init();
   }
 
   goDetail(list) {

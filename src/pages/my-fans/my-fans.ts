@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { AppData } from '../../assets/data/app.data';
+import { NativeService } from '../../assets/providers/Native.Service';
 
 import { PersonHomePage } from '../person-home/person-home';
 
@@ -18,19 +19,24 @@ export class MyFansPage {
   title;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   	 this.user = this.navParams.get('user');
-     this.ID = 0;
+      this.ID = 0;
+  }
+
+  init(e?) {
+      if(this.ID  == this.user.uID) {
+           this.title = '我的粉丝';
+       }else {
+           this.title = '他的粉丝'     
+       }
+      this.myFans = AppData.getMyFans(this.user.uID);
+      this.myFans.map( ret => {
+        ret.isGuanzhu = AppData.isGuanzhu(this.ID,ret.uID);
+      })
+      NativeService.refreshComplete(e);
   }
 
   ionViewWillEnter() {
-    if(this.ID  == this.user.uID) {
-         this.title = '我的粉丝';
-     }else {
-         this.title = '他的粉丝'     
-     }
-  	this.myFans = AppData.getMyFans(this.user.uID);
-  	this.myFans.map( ret => {
-  		ret.isGuanzhu = AppData.isGuanzhu(this.ID,ret.uID);
-  	})
+      this.init();
   }
 
   addGuanzhu(fans) {

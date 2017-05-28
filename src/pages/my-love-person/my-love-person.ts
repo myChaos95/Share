@@ -2,6 +2,7 @@ import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { AppData } from '../../assets/data/app.data';
+import { NativeService } from '../../assets/providers/Native.Service';
 
 import { PersonHomePage } from '../person-home/person-home';
 
@@ -20,17 +21,22 @@ export class MyLovePersonPage {
       this.ID = 0;
   }
 
+  init(e?) {
+      if(this.ID  == this.user.uID) {
+           this.title = '我的关注';
+       }else {
+           this.title = '他的关注'     
+       }
+      this.myLoves = AppData.getMyLove(this.user.uID);
+      this.myLoves.map( ret => {
+        ret.isGuanzhu = AppData.isGuanzhu(this.ID,ret.uID);
+            ret.loading = false;
+      })
+      NativeService.refreshComplete(e);
+  }
+
   ionViewWillEnter() {
-     if(this.ID  == this.user.uID) {
-         this.title = '我的关注';
-     }else {
-         this.title = '他的关注'     
-     }
-  	this.myLoves = AppData.getMyLove(this.user.uID);
-  	this.myLoves.map( ret => {
-  		ret.isGuanzhu = AppData.isGuanzhu(this.ID,ret.uID);
-          ret.loading = false;
-  	})
+      this.init();
   }
 
   addGuanzhu(love) {

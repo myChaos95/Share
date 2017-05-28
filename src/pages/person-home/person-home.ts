@@ -25,6 +25,8 @@ export class PersonHomePage {
 
   index: number;
   active: boolean;
+  imgCount = 9;
+  heartCount = 4;
 
   poh = 'heart';
   images: any;
@@ -37,12 +39,19 @@ export class PersonHomePage {
       console.log(this.imgC)
   }
 
+  init(e?) {
+      this.imgCount = 9;
+      this.heartCount = 4;
+      this.bgImg =  `url('${this.user.bgImg}')`;
+      this.uLoveNum = this.user.lovesID.length;
+      this.uFansNum = AppData.getMyFans(this.user.uID).length;
+      this.images = AppData.getPersonPic(this.user.uID,this.imgCount);
+      this.writings = AppData.getMyWritings(this.user.uID,this.heartCount);
+      NativeService.refreshComplete(e);
+  }
+
   ionViewWillEnter() {
-     this.bgImg =  `url('${this.user.bgImg}')`;
-  	this.uLoveNum = this.user.lovesID.length;
-  	this.uFansNum = AppData.getMyFans(this.user.uID).length;
-  	this.images = AppData.getPersonPic(this.user.uID,9);
-  	this.writings = AppData.getMyWritings(this.user.uID);
+       this.init();
   }
 
   goLoves() {
@@ -72,5 +81,19 @@ export class PersonHomePage {
   hideImg() {
      this.active = false;
      this.native.showTabs();
+  }
+
+  moreImg(e) {
+      this.imgCount += 9;
+      NativeService.refreshComplete(e,() => {
+          this.images = AppData.getPersonPic(this.user.uID,this.imgCount);
+      });
+  }
+
+  moreHeart(e) {
+      this.heartCount += 4;
+      NativeService.refreshComplete(e, () => {
+        this.writings = AppData.getMyWritings(this.user.uID,this.heartCount);
+      });
   }
 }

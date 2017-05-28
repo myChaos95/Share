@@ -18,6 +18,17 @@ let cameraOptions: CameraOptions = {
 @Injectable()
 export class NativeService {
 	constructor(private camera: Camera, private toast: ToastController, private loadingCtrl: LoadingController){}
+
+	static refreshComplete(e,fuc?) {
+		if(e) {
+			setTimeout( () => {
+				if(fuc) {
+					fuc();
+				}
+				e.complete();
+			}, 700);
+		}
+	}
 	getImg() {
 		return this.camera.getPicture(cameraOptions);
 	}
