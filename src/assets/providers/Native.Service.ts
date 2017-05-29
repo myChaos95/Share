@@ -25,7 +25,11 @@ export class NativeService {
 				if(fuc) {
 					fuc();
 				}
-				e.complete();
+				try{
+					e.complete();
+				}catch(e){
+					console.log(e);
+				}
 			}, 700);
 		}
 	}

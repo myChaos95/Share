@@ -1,18 +1,30 @@
-<!--
-  Generated template for the Home page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>home</ion-title>
+	<ion-select [(ngModel)]='select' interface='popover' start (ngModelChange)='init()'>
+  		<ion-option value='hot'>热门</ion-option>
+  		<ion-option value='myLove'>我的关注</ion-option>
+  	</ion-select>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
-
+	<ion-refresher (ionRefresh)='init($event)'>
+	    <ion-refresher-content
+	      pullingIcon="arrow-dropdown"
+	      refreshingSpinner="circles">
+	    </ion-refresher-content>
+	</ion-refresher>
+	<button ion-item *ngFor='let w of writings' (click)='goDetail(w)' class='noPadding'>
+	    <ion-thumbnail item-right>
+	      <img [src]="w.wImg" *ngIf='w.wImg'>
+	    </ion-thumbnail>
+	    <img [src]='w.user.uImg' class='userImg roundImg'>
+	    <span class="name">{{w.user.uName}} <span class="gray">{{w.wTime.substr(5,10)}}</span> </span>
+	    <h1>{{w.wTitle}}</h1>
+	    <p class='gray'>评论 {{w.conCount}}  . 喜欢 {{w.loveCount}}</p>
+	</button>
+	<ion-infinite-scroll (ionInfinite)="getMoreWritings()">
+	   <ion-infinite-scroll-content></ion-infinite-scroll-content>
+	</ion-infinite-scroll>
 </ion-content>

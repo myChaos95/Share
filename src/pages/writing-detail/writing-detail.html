@@ -29,4 +29,22 @@
 	<div class="content">
 		{{writings.wContent}}
 	</div>
+	<div class="divider big">
+		评论 {{writings.conCount}}	<button  class="only_autor" (click)='conStatus()' [ngClass]='{"active": only_autor}'>只看作者</button>
+	</div>
+	<ion-list>
+		<ion-item *ngFor='let c of comments;let i = index; ' class='border noPadding'>
+			<img [src]='c.user.uImg' class='userImg roundImg' (click)='goPersonHomeS(c.user)'>
+			<span class="message" (click)='goPersonHomeS(c.user)'>
+				<h3 class="name">{{c.user.uName}}</h3>
+				<p> <span class="floor">{{i + 1}}楼</span> <span class="time">{{c.time.substr(5,11)}}</span> </p>
+			</span>
+			<span item-right>
+				<ion-icon name='ios-thumbs-up-outline'></ion-icon> {{c.loveCount}}
+			</span>
+			<div class="content">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi officia consectetur consequatur omnis adipisci harum, perspiciatis ducimus quibusdam distinctio maxime sint dignissimos doloremque dolorum exercitationem eum, id assumenda qui consequuntur.
+			</div>
+		</ion-item>
+	</ion-list>
 </ion-content>

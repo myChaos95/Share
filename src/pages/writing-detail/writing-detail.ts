@@ -21,12 +21,19 @@ export class WritingDetailPage {
   ID: any;
   isLoading: any = false;
 
+  only_autor = false;
+  comments;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private native: NativeService, private storage: Storage) {
   	  this.user = this.navParams.get('user');
   	  this.writings = this.navParams.get('writings');
   	  this.native.hideTabs();
        this.ID = 0;
        this.isGuanzhu = AppData.isGuanzhu(this.ID,this.user.uID);
+       this.comments = AppData.getWritingComments(this.writings.wID);
+       this.comments.map( ret => {
+           ret.user = AppData.getUserByComments(ret.cID);
+       })
   }
 
   ionViewWillLeave() {
@@ -50,4 +57,16 @@ export class WritingDetailPage {
       }
   }
 
+  goPersonHomeS(user) {
+      this.navCtrl.push(PersonHomePage,{user: user});
+  }
+
+  conStatus() {
+      this.only_autor = !this.only_autor;
+      this.native.showLoading({
+          duration: 300,
+          showBackdrop: false,
+          spinner: 'ios',
+      });
+  }
 }

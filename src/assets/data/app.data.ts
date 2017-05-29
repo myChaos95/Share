@@ -7,23 +7,48 @@ export class AppData {
 		{ uID: 0, uName: 'Chaos', lovesID: [] , uImg: 'assets/imgs/1.jpg', loves: [], uInfo: "I'm Default User", uPass: '', isLogin: true, bgImg: 'assets/imgs/2.jpg'}, 
 	];
 	static writings = [
-		{ wID: 0, wTitle: 'Hellow World', wContent: '许多问题待解决', wTime: '', isPublic: true ,loveCount: 0, conCount: 0, wImg: 'assets/imgs/_1.jpg'},
+		{ wID: 0, wTitle: 'Hellow World', wContent: '许多问题待解决', wTime: '', isPublic: true ,loveCount: 0, conCount: 1, wImg: 'assets/imgs/_1.jpg'},
 		{ wID: 1, wTitle: 'Hellow World', wContent: '许多问题待解决', wTime: '', isPublic: true ,loveCount: 0, conCount: 0, wImg: 'assets/imgs/_1.jpg'}
 	];
 	static comments = [
-		{cID: 0, content: '', time: '', loveCount: 0}
+		{wID: 0, uID: 0 ,cID: 0, content: 'haha', time: '2017/5/29 16:15:30', loveCount: 0}
 	];
 	// more
 	static u_w = [
 		{ uID: 0, wID: 0 },
 		{ uID: 0, wID: 1 }
 	];
-	static w_c = [
-		{wID: 0, uID: 0, cID: 0}
-	];
 	static c_c = [
-		{wID: 0, cID: 0,uID: 0, content: '', time: '', loveCount: 0}
+		{wID: 0, cID: 0,fromID: 0, toID: 0, content: '', time: '', loveCount: 0}
 	];
+	// 获取作者信息
+	static getUser(uID) {
+		return AppData.users.find(ret => {
+			return ret.uID == uID;
+		})
+	}
+	// 根据文章获取作者
+	static getUserByWritings(wID) {
+		let u_w = AppData.u_w.find( ret => {
+			return ret.wID == wID;
+		});
+		return AppData.getUser(u_w.uID);
+	}
+	// 获取热门文章 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	static getHotWritings(n = 6) {
+		return AppData.writings.slice(0,n);
+	}
+	// 获取我的关注的文章
+	static getAllMyLoveWritings(uID,n = 6) {
+		let myLoves = AppData.getMyLove(uID);
+		let wr = [];
+		myLoves.map(  ret => {
+			let arr = AppData.getMyWritings(ret.uID);
+			wr = wr.concat(arr);
+		})
+		return wr.slice(0,n);
+	}
+
 	// 获取文章列表
 	static getMyWritings(id, n?) {
 		let arr = [];
@@ -96,15 +121,16 @@ export class AppData {
 	}
 	// 获取文章的评论列表
 	static getWritingComments(wID) {
-		let cIDArr = [];
-		AppData.w_c.map( ret => {
-			if(ret.wID == wID){
-				cIDArr.push(ret.cID);
-			}
-		})
 		return AppData.comments.filter( ret => {
-			return cIDArr.indexOf(ret.cID) != -1;
+			return ret.wID == wID;
 		})
+	}
+	// 根据文章评论获取评论人
+	static getUserByComments(cID) {
+		let uID = AppData.comments.find( ret => {
+			return ret.cID == cID;
+		}).uID;
+		return AppData.getUser(uID);
 	}
 	// 获取评论的评论
 	static getCommentComments(wID,cID) {

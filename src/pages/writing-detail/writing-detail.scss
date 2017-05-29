@@ -16,4 +16,36 @@ page-writing-detail {
 			border-bottom: none !important;
 		}
 	}
+	.only_autor {
+		margin-left: 16px;
+		border: 1px solid #ccc;
+		padding: 5px 10px;
+		border-radius: 5px;
+		background: inherit;
+	}
+	.only_autor.active {
+		border-color: #ff7777;
+		background: #ff7777;
+		color: #fff;
+	}
+	.userImg {
+		height: 35px;
+		width: 35px;
+	}
+	.message {
+		display: inline-block;
+    		vertical-align: middle;
+	}
+	.noPadding {
+		img {
+			margin-left: 16px;
+			margin-right: 5px;
+		}
+	}
+	ion-content {
+		padding-bottom: 20px;
+	}
+}
+.loading-md .loading-wrapper {
+	background: rgba(0, 0, 0, 0.3) !important;
 }
