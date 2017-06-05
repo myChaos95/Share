@@ -1,0 +1,44 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{comment.c_c_num}} 条回复</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+	<ion-card class='white'>
+		<ion-item >
+			<ion-avatar item-left><img [src]="comment.user.uImg" class='bigImg'></ion-avatar>
+			<h2>{{comment.user.uName}}</h2>
+			<p>{{comment.time.substr(5,10)}}</p>
+			<button ion-button icon-right clear small (click)='toggleZan()' item-right>
+				<div>{{comment.loveCount}}</div>
+				<ion-icon name='thumbs-up'  *ngIf='!comment.isZan'></ion-icon>
+				<ion-icon name='thumbs-up' color='danger'  *ngIf='comment.isZan'></ion-icon>
+			</button>
+		</ion-item>
+		<ion-card-content>
+			{{comment.content}}
+		</ion-card-content>
+	</ion-card>
+
+	<ion-card>
+		<ion-item>
+		    <ion-avatar item-left>
+		      <img src="assets/imgs/1.jpg">
+		    </ion-avatar>
+		    <h2>Marty McFly</h2>
+		    <p>November 5, 1955</p>
+		    <button ion-button icon-right clear small  item-right>
+				<div>3</div>
+				<ion-icon name='thumbs-up'  *ngIf='!comment.isZan'></ion-icon>
+				<ion-icon name='thumbs-up' color='danger'  *ngIf='comment.isZan'></ion-icon>
+			</button>
+		</ion-item>
+		<ion-card-content>
+		    <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+		</ion-card-content>
+	</ion-card>
+</ion-content>

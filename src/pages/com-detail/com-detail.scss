@@ -1,0 +1,24 @@
+page-com-detail {
+	.content {
+		background: #edeff0;
+	}
+	.card {
+		margin: 0; 
+		width: 100%;
+		background: inherit;
+	}
+	.item {
+		background: inherit;
+	}
+	.bigImg {
+		width: 50px !important;
+		height: 50px !important;
+	}
+	.card-header + .card-content, .card .item + .card-content {
+		padding-left: 70px;
+	}
+	.white {
+		background: #fff;
+	}
+	
+}
