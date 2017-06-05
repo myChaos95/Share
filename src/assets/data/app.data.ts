@@ -4,14 +4,14 @@ import { Injectable } from '@angular/core';
 export class AppData {
 	// base
 	static users = [
-		{ uID: 0, uName: 'Chaos', lovesID: [] , uImg: 'assets/imgs/1.jpg', loves: [], uInfo: "I'm Default User", uPass: '', isLogin: true, bgImg: 'assets/imgs/2.jpg'}, 
+		{ uID: 0, uName: 'Chaos', lovesID: [] , uImg: 'assets/imgs/1.jpg', loves: [], lovesCID: [], uInfo: "I'm Default User", uPass: '', isLogin: true, bgImg: 'assets/imgs/2.jpg'}, 
 	];
 	static writings = [
 		{ wID: 0, wTitle: 'Hellow World', wContent: '许多问题待解决', wTime: '', isPublic: true ,loveCount: 0, conCount: 1, wImg: 'assets/imgs/_1.jpg'},
 		{ wID: 1, wTitle: 'Hellow World', wContent: '许多问题待解决', wTime: '', isPublic: true ,loveCount: 0, conCount: 0, wImg: 'assets/imgs/_1.jpg'}
 	];
 	static comments = [
-		{wID: 0, uID: 0 ,cID: 0, content: 'haha', time: '2017/5/29 16:15:30', loveCount: 0}
+		{wID: 0 ,cID: 0,  uID: 0, content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis consequatur error rem sed! Similique amet dignissimos ea quas perferendis doloremque laudantium incidunt saepe, minus tenetur ipsa dolorem, cumque, voluptate eos!', time: '2017/5/29 16:15:30', loveCount: 0}
 	];
 	// more
 	static u_w = [
@@ -19,7 +19,7 @@ export class AppData {
 		{ uID: 0, wID: 1 }
 	];
 	static c_c = [
-		{wID: 0, cID: 0,fromID: 0, toID: 0, content: '', time: '', loveCount: 0}
+		{wID: 0, cID: 0, toID: 0, fromID: 0, content: '回复', time: '', loveCount: 0}
 	];
 	// 获取作者信息
 	static getUser(uID) {
@@ -171,5 +171,32 @@ export class AppData {
 			}
 		})
 		return images.slice(0,len);
+	}
+	// 查看是评论是否已经点赞
+	static isZan(uID,cID) {
+		let user = AppData.getUser(uID);
+		let i = user.lovesCID.indexOf(cID);
+		if( i != -1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	// 评论点赞操作 0 点赞 / 其他 取消赞
+	static operZan(uID,cID,num = 0) {
+		let user = AppData.getUser(uID);
+		if( num == 0){
+			user.lovesCID.push(cID);
+		}else {
+		 	let i = user.lovesCID.indexOf(cID);
+		 	user.lovesCID.splice(i,1);
+		}
+		return true;
+	}
+	// 获取评论的回复
+	static getC_C(cID) {
+		return AppData.c_c.filter( ret => {
+			return ret.cID == cID;
+		})
 	}
 }

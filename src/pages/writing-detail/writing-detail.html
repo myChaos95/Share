@@ -9,6 +9,13 @@
 </ion-header>
 
 <ion-content>
+	<ion-refresher (ionRefresh)='init($event)'>
+	    <ion-refresher-content
+	      pullingIcon="arrow-dropdown"
+	      pullingText="Pull to refresh"
+	      refreshingSpinner="circles">
+	    </ion-refresher-content>
+	</ion-refresher>
 	<ion-item class='myItem' (click)='goPersonHome($event)'> 
 	    <ion-thumbnail item-left class='ion-th'>
 	      <img [src]='user.uImg' class='roundImg'>
@@ -32,16 +39,31 @@
 	<div class="divider big">
 		评论 {{writings.conCount}}	<button  class="only_autor" (click)='conStatus()' [ngClass]='{"active": only_autor}'>只看作者</button>
 	</div>
-	<ion-list>
-		<ion-item *ngFor='let c of comments;let i = index; ' class='border noPadding'>
-			<img [src]='c.user.uImg' class='userImg roundImg' (click)='goPersonHomeS(c.user)'>
-			<span class="message" (click)='goPersonHomeS(c.user)'>
-				<h3 class="name">{{c.user.uName}}</h3>
-				<p> <span class="floor">{{i + 1}}楼</span> <span class="time">{{c.time.substr(5,11)}}</span> </p>
-			</span>
-			<span item-right>
-				<ion-icon name='ios-thumbs-up-outline'></ion-icon> {{c.loveCount}}
-			</span>
+	
+	<ion-card *ngFor='let c of comments; let i = index; '>
+		<ion-item (click)='goPersonHomeS(c.user)'>
+			<ion-avatar item-left><img [src]="c.user.uImg"></ion-avatar>
+			<h2>{{c.user.uName}}</h2>
+			<p>{{i + 1}}楼</p>
+			<span item-right>{{c.time.substr(5,10)}}</span>
 		</ion-item>
-	</ion-list>
+		<ion-card-content>
+			{{c.content}}
+		</ion-card-content>
+		<ion-row>
+			<ion-col>
+				<button ion-button icon-right clear small (click)='toggleZan(c)'>
+					<div>{{c.loveCount}}</div>
+					<ion-icon name='thumbs-up'  *ngIf='!c.isZan'></ion-icon>
+					<ion-icon name='thumbs-up' color='danger'  *ngIf='c.isZan'></ion-icon>
+				</button>
+			</ion-col>
+			<ion-col  class='commentsNum' (click)='goCommentsDetail(c)'>
+				<button ion-button icon-left clear small>
+					<ion-icon name='text'></ion-icon>
+					<div>{{c.c_c_num}} comments</div>
+				</button>
+			</ion-col>
+		</ion-row>
+	</ion-card>
 </ion-content>

@@ -7,6 +7,7 @@ import { NativeService } from '../../assets/providers/Native.Service';
 import { AppData } from '../../assets/data/app.data';
 
 import { PersonHomePage } from '../person-home/person-home';
+import { ComDetailPage } from '../com-detail/com-detail';
 
 @IonicPage()
 @Component({
@@ -27,13 +28,23 @@ export class WritingDetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private native: NativeService, private storage: Storage) {
   	  this.user = this.navParams.get('user');
   	  this.writings = this.navParams.get('writings');
-  	  this.native.hideTabs();
        this.ID = 0;
-       this.isGuanzhu = AppData.isGuanzhu(this.ID,this.user.uID);
+  }
+
+  init(e?) {
+      this.isGuanzhu = AppData.isGuanzhu(this.ID,this.user.uID);
        this.comments = AppData.getWritingComments(this.writings.wID);
        this.comments.map( ret => {
            ret.user = AppData.getUserByComments(ret.cID);
+           ret.isZan = AppData.isZan(this.ID, ret.cID);
+           ret.c_c_num = AppData.getC_C(ret.cID).length;
        })
+      this.native.hideTabs();
+      NativeService.refreshComplete(e);
+  }
+
+  ionViewWillEnter() {
+       this.init();
   }
 
   ionViewWillLeave() {
@@ -68,6 +79,21 @@ export class WritingDetailPage {
           showBackdrop: false,
           spinner: 'ios',
       });
+  }
+
+  toggleZan(c) {
+      if(c.isZan) {
+          c.loveCount = c.loveCount - 1;
+          AppData.operZan(this.ID,c.cID, 1);
+      }else {
+          c.loveCount = c.loveCount + 1;
+          AppData.operZan(this.ID,c.cID, 0);
+      }
+      c.isZan = !c.isZan;
+  }
+
+  goCommentsDetail(c) {
+      this.navCtrl.push(ComDetailPage,{ comment: c });
   }
 
 }

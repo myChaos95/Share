@@ -45,7 +45,17 @@ page-writing-detail {
 	ion-content {
 		padding-bottom: 20px;
 	}
+	.commentsNum {
+		text-align: right;
+	}
 }
-.loading-md .loading-wrapper {
+.loading .loading-wrapper {
 	background: rgba(0, 0, 0, 0.3) !important;
+}
+.card {
+	box-shadow: none;
+	border-bottom: 1px solid #ccc;
+}
+.scroll-content {
+	margin-bottom: 0 !important;
 }

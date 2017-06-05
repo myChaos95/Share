@@ -24,6 +24,7 @@ import { MyLovePersonPage } from '../pages/my-love-person/my-love-person';
 import { MyLoveWritingsPage } from '../pages/my-love-writings/my-love-writings';
 import { MyFansPage } from '../pages/my-fans/my-fans';
 import { PersonHomePage } from '../pages/person-home/person-home';
+import { ComDetailPage } from '../pages/com-detail/com-detail';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { PersonHomePage } from '../pages/person-home/person-home';
     MyLovePersonPage,
     MyLoveWritingsPage,
     MyFansPage,
-    PersonHomePage
+    PersonHomePage,
+    ComDetailPage
   ],
   imports: [
     BrowserModule,
@@ -64,7 +66,8 @@ import { PersonHomePage } from '../pages/person-home/person-home';
     MyLovePersonPage,
     MyLoveWritingsPage,
     MyFansPage,
-    PersonHomePage
+    PersonHomePage,
+    ComDetailPage
   ],
   providers: [
     StatusBar,
