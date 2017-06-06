@@ -48,6 +48,9 @@ page-writing-detail {
 	.commentsNum {
 		text-align: right;
 	}
+	ion-footer {
+		bottom: 0 !important;
+	}
 }
 .loading .loading-wrapper {
 	background: rgba(0, 0, 0, 0.3) !important;
@@ -57,5 +60,5 @@ page-writing-detail {
 	border-bottom: 1px solid #ccc;
 }
 .scroll-content {
-	margin-bottom: 0 !important;
+	margin-bottom: 56px !important;
 }

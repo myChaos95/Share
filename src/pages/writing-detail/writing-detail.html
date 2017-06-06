@@ -66,4 +66,13 @@
 			</ion-col>
 		</ion-row>
 	</ion-card>
+	<ion-infinite-scroll (ionInfinite)="getMoreComments($event)">
+	   <ion-infinite-scroll-content></ion-infinite-scroll-content>
+	</ion-infinite-scroll>
 </ion-content>
+
+<ion-footer (tap)='goReplyPage()'>
+	<ion-toolbar>
+		<ion-input placeholder='评论'></ion-input>
+	</ion-toolbar>
+</ion-footer>

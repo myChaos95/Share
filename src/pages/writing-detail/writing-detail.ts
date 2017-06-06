@@ -8,6 +8,7 @@ import { AppData } from '../../assets/data/app.data';
 
 import { PersonHomePage } from '../person-home/person-home';
 import { ComDetailPage } from '../com-detail/com-detail';
+import { ReplyPage } from '../reply/reply';
 
 @IonicPage()
 @Component({
@@ -24,6 +25,7 @@ export class WritingDetailPage {
 
   only_autor = false;
   comments;
+  comNum = 4;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private native: NativeService, private storage: Storage) {
   	  this.user = this.navParams.get('user');
@@ -32,8 +34,9 @@ export class WritingDetailPage {
   }
 
   init(e?) {
+      this.comNum = 4;
       this.isGuanzhu = AppData.isGuanzhu(this.ID,this.user.uID);
-       this.comments = AppData.getWritingComments(this.writings.wID);
+       this.comments = AppData.getWritingComments(this.writings.wID, this.comNum);
        this.comments.map( ret => {
            ret.user = AppData.getUserByComments(ret.cID);
            ret.isZan = AppData.isZan(this.ID, ret.cID);
@@ -94,6 +97,25 @@ export class WritingDetailPage {
 
   goCommentsDetail(c) {
       this.navCtrl.push(ComDetailPage,{ comment: c });
+  }
+
+
+  getMoreComments(e) {
+      this.comNum += 4;
+      this.comments = AppData.getWritingComments(this.writings.wID, this.comNum);
+       this.comments.map( ret => {
+           ret.user = AppData.getUserByComments(ret.cID);
+           ret.isZan = AppData.isZan(this.ID, ret.cID);
+           ret.c_c_num = AppData.getC_C(ret.cID).length;
+       })
+       NativeService.refreshComplete(e);
+  }
+
+  goReplyPage() { // wID, 
+      this.navCtrl.push(ReplyPage,{
+          wID: this.writings.wID,
+          cID: -1,
+      });
   }
 
 }

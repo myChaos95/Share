@@ -5,6 +5,8 @@ import { AppData } from '../../assets/data/app.data';
 
 import { NativeService } from '../../assets/providers/Native.Service';
 
+import { ReplyPage } from '../reply/reply';
+
 @IonicPage()
 @Component({
   selector: 'page-com-detail',
@@ -15,14 +17,25 @@ export class ComDetailPage {
   comment: any;
   c_c: any;
   ID: 0;
+  replyNum = 6;
   constructor(public navCtrl: NavController, public navParams: NavParams, private native: NativeService) {
         this.comment = this.navParams.get('comment'); 	// 有评论人，和本用户是否点赞
         this.ID = 0;
   }
 
+  init(e?) {
+      this.replyNum = 6;
+      this.native.hideTabs();
+      this.c_c = AppData.getC_C(this.comment.cID, this.replyNum);
+        this.c_c.map( ret => {
+            ret.user = AppData.getUser(ret.fromID);
+            ret.isZan = AppData.replyIsZan(this.ID, ret.c_cID);
+        })
+       NativeService.refreshComplete(e);
+  }
+
   ionViewWillEnter() {
-  	this.native.hideTabs();
-  	this.c_c = AppData.getC_C(this.comment.cID);
+  	this.init();
   }
 
   toggleZan() {
@@ -34,6 +47,34 @@ export class ComDetailPage {
           AppData.operZan(this.ID,this.comment.cID, 0);
       }
      this.comment.isZan = !this.comment.isZan;
+  }
+
+  toggleReplyZan(c) {
+      if(c.isZan) {
+          c.loveCount -= 1;
+          AppData.operReplyZan(this.ID, c.c_cID, 1);
+      }else {
+          c.loveCount += 1;
+          AppData.operReplyZan(this.ID, c.c_cID);
+      }
+      c.isZan = !c.isZan;
+  }
+
+  getMoreReply(e) {
+      this.replyNum += 6;
+      this.c_c = AppData.getC_C(this.comment.cID, this.replyNum);
+        this.c_c.map( ret => {
+            ret.user = AppData.getUser(ret.fromID);
+            ret.isZan = AppData.replyIsZan(this.ID, ret.c_cID);
+        })
+      NativeService.refreshComplete(e);
+  }
+
+  goReplyPage() { // wID, cID,   
+      this.navCtrl.push(ReplyPage, {
+          wID: this.comment.wID,
+          cID: this.comment.cID
+      });
   }
  
 }

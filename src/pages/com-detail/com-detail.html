@@ -8,6 +8,13 @@
 
 
 <ion-content>
+	<ion-refresher (ionRefresh)='init($event)'>
+	    <ion-refresher-content
+	      pullingIcon="arrow-dropdown"
+	      pullingText="Pull to refresh"
+	      refreshingSpinner="circles">
+	    </ion-refresher-content>
+	</ion-refresher>
 	<ion-card class='white'>
 		<ion-item >
 			<ion-avatar item-left><img [src]="comment.user.uImg" class='bigImg'></ion-avatar>
@@ -24,21 +31,31 @@
 		</ion-card-content>
 	</ion-card>
 
-	<ion-card>
+	<ion-card *ngFor='let c of c_c'>
 		<ion-item>
 		    <ion-avatar item-left>
-		      <img src="assets/imgs/1.jpg">
+		      <img [src]="c.user.uImg">
 		    </ion-avatar>
-		    <h2>Marty McFly</h2>
-		    <p>November 5, 1955</p>
-		    <button ion-button icon-right clear small  item-right>
-				<div>3</div>
-				<ion-icon name='thumbs-up'  *ngIf='!comment.isZan'></ion-icon>
-				<ion-icon name='thumbs-up' color='danger'  *ngIf='comment.isZan'></ion-icon>
+		    <h2>{{c.user.uName}}</h2>
+		    <p>{{c.time.substr(5,10)}}</p>
+		    <button ion-button icon-right clear small  item-right (click)='toggleReplyZan(c)'>
+				<div>{{c.loveCount}}</div>
+				<ion-icon name='thumbs-up'  *ngIf='!c.isZan'></ion-icon>
+				<ion-icon name='thumbs-up' color='danger'  *ngIf='c.isZan'></ion-icon>
 			</button>
 		</ion-item>
 		<ion-card-content>
-		    <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+		    {{c.content}}
 		</ion-card-content>
 	</ion-card>
+
+	<ion-infinite-scroll (ionInfinite)="getMoreReply($event)">
+	   <ion-infinite-scroll-content></ion-infinite-scroll-content>
+	</ion-infinite-scroll>
 </ion-content>
+
+<ion-footer (tap)='goReplyPage()'>
+	<ion-toolbar>
+		<ion-input placeholder='评论'></ion-input>
+	</ion-toolbar>
+</ion-footer>

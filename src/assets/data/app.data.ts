@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class AppData {
 	// base
 	static users = [
-		{ uID: 0, uName: 'Chaos', lovesID: [] , uImg: 'assets/imgs/1.jpg', loves: [], lovesCID: [], uInfo: "I'm Default User", uPass: '', isLogin: true, bgImg: 'assets/imgs/2.jpg'}, 
+		{ uID: 0, uName: 'Chaos', lovesID: [] , uImg: 'assets/imgs/1.jpg', loves: [], lovesCID: [], lovesC_CID: [], uInfo: "I'm Default User", uPass: '', isLogin: true, bgImg: 'assets/imgs/2.jpg'}, 
 	];
 	static writings = [
 		{ wID: 0, wTitle: 'Hellow World', wContent: '许多问题待解决', wTime: '', isPublic: true ,loveCount: 0, conCount: 1, wImg: 'assets/imgs/_1.jpg'},
@@ -19,7 +19,14 @@ export class AppData {
 		{ uID: 0, wID: 1 }
 	];
 	static c_c = [
-		{wID: 0, cID: 0, toID: 0, fromID: 0, content: '回复', time: '', loveCount: 0}
+		{c_cID: 0, wID: 0, cID: 0, toID: 0, fromID: 0, content: '回复', time: '', loveCount: 0},
+		{c_cID: 1, wID: 0, cID: 0, toID: 0, fromID: 0, content: '回复', time: '', loveCount: 0},
+		{c_cID: 2, wID: 0, cID: 0, toID: 0, fromID: 0, content: '回复', time: '', loveCount: 0},
+		{c_cID: 3, wID: 0, cID: 0, toID: 0, fromID: 0, content: '回复', time: '', loveCount: 0},
+		{c_cID: 4, wID: 0, cID: 0, toID: 0, fromID: 0, content: '回复', time: '', loveCount: 0},
+		{c_cID: 5, wID: 0, cID: 0, toID: 0, fromID: 0, content: '回复', time: '', loveCount: 0},
+		{c_cID: 6, wID: 0, cID: 0, toID: 0, fromID: 0, content: '回复', time: '', loveCount: 0},
+		{c_cID: 7, wID: 0, cID: 0, toID: 0, fromID: 0, content: '回复', time: '', loveCount: 0},
 	];
 	// 获取作者信息
 	static getUser(uID) {
@@ -120,10 +127,14 @@ export class AppData {
 		return myLoveWritings;
 	}
 	// 获取文章的评论列表
-	static getWritingComments(wID) {
-		return AppData.comments.filter( ret => {
+	static getWritingComments(wID, num?) {
+		let arr = AppData.comments.filter( ret => {
 			return ret.wID == wID;
-		})
+		});
+		if( num == undefined) {
+			num = arr.length;
+		}
+		return arr.slice(0, num);
 	}
 	// 根据文章评论获取评论人
 	static getUserByComments(cID) {
@@ -182,6 +193,16 @@ export class AppData {
 			return false;
 		}
 	}
+	// 查看回复是否已经点赞
+	static replyIsZan(uID,c_cID) {
+		let user = AppData.getUser(uID);
+		let i = user.lovesC_CID.indexOf(c_cID);
+		if( i != -1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	// 评论点赞操作 0 点赞 / 其他 取消赞
 	static operZan(uID,cID,num = 0) {
 		let user = AppData.getUser(uID);
@@ -193,10 +214,25 @@ export class AppData {
 		}
 		return true;
 	}
+	// 回复点赞操作
+	static operReplyZan(uID, c_cID, num = 0) {
+		let user = AppData.getUser(uID);
+		if( num == 0){
+			user.lovesC_CID.push(c_cID);
+		}else {
+		 	let i = user.lovesC_CID.indexOf(c_cID);
+		 	user.lovesC_CID.splice(i,1);
+		}
+		return true;
+	}
 	// 获取评论的回复
-	static getC_C(cID) {
-		return AppData.c_c.filter( ret => {
+	static getC_C(cID, num?) {
+		let arr = AppData.c_c.filter( ret => {
 			return ret.cID == cID;
-		})
+		});
+		if( num == undefined) {
+			num = arr.length;
+		}
+		return arr.slice(0, num);
 	}
 }
