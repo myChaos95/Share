@@ -82,7 +82,7 @@ export class ComDetailPage {
   }
 
   reply(c) {
-      //  在第二行显示....
+      //  在第二行显示...
       this.isReply = true;
       try{
           let header: any = document.querySelector('.replyToast header');
