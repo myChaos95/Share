@@ -82,6 +82,7 @@ export class WritingDetailPage {
           showBackdrop: false,
           spinner: 'ios',
       });
+      this.comments = AppData.getWritingComments(this.writings.wID, this.comNum);
   }
 
   toggleZan(c) {
@@ -102,7 +103,7 @@ export class WritingDetailPage {
 
   getMoreComments(e) {
       this.comNum += 4;
-      this.comments = AppData.getWritingComments(this.writings.wID, this.comNum);
+      this.comments = AppData.getWritingComments(this.writings.wID, this.comNum, 1, this.writings.user.uID);
        this.comments.map( ret => {
            ret.user = AppData.getUserByComments(ret.cID);
            ret.isZan = AppData.isZan(this.ID, ret.cID);

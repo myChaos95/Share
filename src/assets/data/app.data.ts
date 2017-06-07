@@ -5,13 +5,16 @@ export class AppData {
 	// base
 	static users = [
 		{ uID: 0, uName: 'Chaos', lovesID: [] , uImg: 'assets/imgs/1.jpg', loves: [], lovesCID: [], lovesC_CID: [], uInfo: "I'm Default User", uPass: '', isLogin: true, bgImg: 'assets/imgs/2.jpg'}, 
+		{ uID: 1, uName: 'HaHa', lovesID: [] , uImg: 'assets/imgs/1.jpg', loves: [], lovesCID: [], lovesC_CID: [], uInfo: "I'm Default User", uPass: '', isLogin: true, bgImg: 'assets/imgs/2.jpg'}, 
 	];
 	static writings = [
 		{ wID: 0, wTitle: 'Hellow World', wContent: '许多问题待解决', wTime: '', isPublic: true ,loveCount: 0, conCount: 1, wImg: 'assets/imgs/_1.jpg'},
 		{ wID: 1, wTitle: 'Hellow World', wContent: '许多问题待解决', wTime: '', isPublic: true ,loveCount: 0, conCount: 0, wImg: 'assets/imgs/_1.jpg'}
 	];
 	static comments = [
-		{wID: 0 ,cID: 0,  uID: 0, content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis consequatur error rem sed! Similique amet dignissimos ea quas perferendis doloremque laudantium incidunt saepe, minus tenetur ipsa dolorem, cumque, voluptate eos!', time: '2017/5/29 16:15:30', loveCount: 0}
+		{wID: 0 ,cID: 0,  uID: 0, content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis consequatur error rem sed! Similique amet dignissimos ea quas perferendis doloremque laudantium incidunt saepe, minus tenetur ipsa dolorem, cumque, voluptate eos!', time: '2017/5/29 16:15:30', loveCount: 0},
+		{wID: 0 ,cID: 1,  uID: 0, content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis consequatur error rem sed! Similique amet dignissimos ea quas perferendis doloremque laudantium incidunt saepe, minus tenetur ipsa dolorem, cumque, voluptate eos!', time: '2017/5/29 16:15:30', loveCount: 0},
+		{wID: 0 ,cID: 2,  uID: 1, content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis consequatur error rem sed! Similique amet dignissimos ea quas perferendis doloremque laudantium incidunt saepe, minus tenetur ipsa dolorem, cumque, voluptate eos!', time: '2017/5/29 16:15:30', loveCount: 0},
 	];
 	// more
 	static u_w = [
@@ -126,11 +129,18 @@ export class AppData {
 		} )
 		return myLoveWritings;
 	}
-	// 获取文章的评论列表
-	static getWritingComments(wID, num?) {
-		let arr = AppData.comments.filter( ret => {
-			return ret.wID == wID;
-		});
+	// 获取文章的评论列表 op = 0 代表 所有人,其余=作者评论
+	static getWritingComments(wID, num?, op = 0, autorID?) {
+		let arr: any;
+		if(op == 0) {
+			arr = AppData.comments.filter( ret => {
+				return ret.wID == wID;
+			});
+		}else {
+			arr = AppData.comments.filter( ret => {
+				return ret.wID == wID && ret.uID == autorID;
+			})
+		}
 		if( num == undefined) {
 			num = arr.length;
 		}
