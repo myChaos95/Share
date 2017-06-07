@@ -18,6 +18,10 @@ export class ComDetailPage {
   c_c: any;
   ID: 0;
   replyNum = 6;
+
+  content: any;
+  isReply = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private native: NativeService) {
         this.comment = this.navParams.get('comment'); 	// 有评论人，和本用户是否点赞
         this.ID = 0;
@@ -75,6 +79,18 @@ export class ComDetailPage {
           wID: this.comment.wID,
           cID: this.comment.cID
       });
+  }
+
+  reply(c) {
+      //  在第二行显示....
+      this.isReply = true;
+      try{
+          let header: any = document.querySelector('.replyToast header');
+          header.style.webkitBoxOrient = 'vertical';
+      }catch(e) {
+          console.log(e);
+      }
+      this.content = c.content;
   }
  
 }

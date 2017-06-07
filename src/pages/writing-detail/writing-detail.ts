@@ -23,6 +23,8 @@ export class WritingDetailPage {
   ID: any;
   isLoading: any = false;
 
+  isAutorSelf = false;
+
   only_autor = false;
   comments;
   comNum = 4;
@@ -34,6 +36,11 @@ export class WritingDetailPage {
   }
 
   init(e?) {
+      if(this.ID == this.writings.user.uID) {
+          this.isAutorSelf = true;
+      }else {
+          this.isAutorSelf = false;
+      }
       this.comNum = 4;
       this.isGuanzhu = AppData.isGuanzhu(this.ID,this.user.uID);
        this.comments = AppData.getWritingComments(this.writings.wID, this.comNum);
@@ -82,7 +89,7 @@ export class WritingDetailPage {
           showBackdrop: false,
           spinner: 'ios',
       });
-      this.comments = AppData.getWritingComments(this.writings.wID, this.comNum);
+      this.comments = AppData.getWritingComments(this.writings.wID, this.comNum, 1, this.writings.user.uID);
   }
 
   toggleZan(c) {
@@ -103,7 +110,11 @@ export class WritingDetailPage {
 
   getMoreComments(e) {
       this.comNum += 4;
-      this.comments = AppData.getWritingComments(this.writings.wID, this.comNum, 1, this.writings.user.uID);
+      if(this.only_autor) {
+          this.comments = AppData.getWritingComments(this.writings.wID, this.comNum, 1, this.writings.user.uID);
+      }else {
+          this.comments = AppData.getWritingComments(this.writings.wID, this.comNum);
+      }
        this.comments.map( ret => {
            ret.user = AppData.getUserByComments(ret.cID);
            ret.isZan = AppData.isZan(this.ID, ret.cID);

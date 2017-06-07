@@ -31,7 +31,7 @@
 		</ion-card-content>
 	</ion-card>
 
-	<ion-card *ngFor='let c of c_c'>
+	<ion-card *ngFor='let c of c_c' (tap)='reply(c)'>
 		<ion-item>
 		    <ion-avatar item-left>
 		      <img [src]="c.user.uImg">
@@ -48,6 +48,18 @@
 		    {{c.content}}
 		</ion-card-content>
 	</ion-card>
+	
+	<div  class='replyToast' *ngIf='isReply'>
+		<header>{{content}}</header>
+		<ion-list>
+			<button ion-item>
+				回复
+			</button>
+			<button ion-item>
+				复制
+			</button>
+		</ion-list>
+	</div>
 
 	<ion-infinite-scroll (ionInfinite)="getMoreReply($event)">
 	   <ion-infinite-scroll-content></ion-infinite-scroll-content>

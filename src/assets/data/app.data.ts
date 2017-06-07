@@ -19,7 +19,7 @@ export class AppData {
 	// more
 	static u_w = [
 		{ uID: 0, wID: 0 },
-		{ uID: 0, wID: 1 }
+		{ uID: 1, wID: 1 }
 	];
 	static c_c = [
 		{c_cID: 0, wID: 0, cID: 0, toID: 0, fromID: 0, content: '回复', time: '', loveCount: 0},

@@ -22,10 +22,10 @@
 	    </ion-thumbnail>
 	    <h2>{{user.uName}}</h2>
 	    <p>{{writings.wTime}}</p>
-	    <span ion-button icon-button icon-left item-right *ngIf='!isGuanzhu && !isLoading'>
+	    <span ion-button icon-button icon-left item-right *ngIf='!isGuanzhu && !isLoading && !isAutorSelf'>
 	    	  <span style="font-size: 18px;margin-right: 3px;">+</span> 关注
 	    </span>
-	    <span ion-button icon-button icon-left item-right *ngIf='isGuanzhu && !isLoading'>
+	    <span ion-button icon-button icon-left item-right *ngIf='isGuanzhu && !isLoading && !isAutorSelf'>
 	    	  已关注
 	    </span>
 	    <ion-spinner name='ios' *ngIf='isLoading' item-right></ion-spinner>

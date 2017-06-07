@@ -20,5 +20,33 @@ page-com-detail {
 	.white {
 		background: #fff;
 	}
+	.replyToast {
+		position: fixed;
+		top: 50%;
+		transform: translateY(-50%);
+		left: 20px;
+		right: 20px;
+		width: initial;
+		border-radius: 10px;
+		background: #fff;
+		header {
+			    text-align: center;
+			    white-space: normal;
+			    display: -webkit-box;
+			    display: -moz-box;
+			    display: box;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    -webkit-line-clamp: 2;
+			    box-orient:vertical;
+			    line-height: 33px;
+			    font-size: 1.6rem;
+			    padding: 15px 10px;
+		}
+		.item {
+			border-top: 1px solid #d2cbcb;
+			text-indent: 10px;
+		}
+	}
 	
 }
