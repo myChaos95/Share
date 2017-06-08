@@ -12,7 +12,7 @@
 <ion-content>
 	<input type="text" ion-item placeholder="请输入标题" class='w_title' [(ngModel)]='myTitle' maxlength="30">
 	<img [src]='wImg' *ngIf='wImg' class='wImg'>
-	<textarea class="w_content" contenteditable="true" placeholder='请输入正文' (input)="count()" [(ngModel)]='content' contenteditable="true"></textarea>
+	<textarea class="w_content" placeholder='请输入正文' (input)="count()" [(ngModel)]='content' contenteditable="true"></textarea>
 	<div class="tool">
 		<ion-icon name='image' (click)='addImg()'></ion-icon>
 		<ion-icon name='logo-sass'></ion-icon>

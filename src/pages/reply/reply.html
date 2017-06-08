@@ -1,13 +1,21 @@
-
 <ion-header>
+  <ion-toolbar>
+    <ion-buttons start  class='start'>
+	  <button ion-button clear color='primary' (click)='popout()'>
+	  	 取消
+	  </button>
+    </ion-buttons>
+    <ion-title class='title'>{{title}}</ion-title>
+    <ion-buttons end>
+	  <button ion-button clear color='primary' (click)='public()'>
+	  	 发送
+	  </button>
+    </ion-buttons>
 
-  <ion-navbar>
-    <ion-title>reply</ion-title>
-  </ion-navbar>
-
+  </ion-toolbar>
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+	<textarea class="content" maxlength="100" contenteditable="true" autofocus="true" [(ngModel)]='content' rows="7"></textarea>
 </ion-content>

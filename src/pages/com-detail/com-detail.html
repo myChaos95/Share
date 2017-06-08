@@ -31,15 +31,15 @@
 		</ion-card-content>
 	</ion-card>
 
-	<ion-card *ngFor='let c of c_c' (tap)='reply(c)'>
+	<ion-card *ngFor='let c of c_c' (click)='reply(c,$event)'>
 		<ion-item>
 		    <ion-avatar item-left>
 		      <img [src]="c.user.uImg">
 		    </ion-avatar>
 		    <h2>{{c.user.uName}}</h2>
 		    <p>{{c.time.substr(5,10)}}</p>
-		    <button ion-button icon-right clear small  item-right (click)='toggleReplyZan(c)'>
-				<div>{{c.loveCount}}</div>
+		    <button ion-button icon-right clear small  item-right>
+				<div class="btn">{{c.loveCount}}</div>
 				<ion-icon name='thumbs-up'  *ngIf='!c.isZan'></ion-icon>
 				<ion-icon name='thumbs-up' color='danger'  *ngIf='c.isZan'></ion-icon>
 			</button>
@@ -50,9 +50,9 @@
 	</ion-card>
 	
 	<div  class='replyToast' *ngIf='isReply'>
-		<header>{{content}}</header>
+		<header>{{nowC_C.content}}</header>
 		<ion-list>
-			<button ion-item>
+			<button ion-item (click)='replyUser(nowC_C)'>
 				回复
 			</button>
 			<button ion-item>
@@ -60,6 +60,8 @@
 			</button>
 		</ion-list>
 	</div>
+
+	<div class="mask" *ngIf='isReply' (click)='hideMask()'></div>
 
 	<ion-infinite-scroll (ionInfinite)="getMoreReply($event)">
 	   <ion-infinite-scroll-content></ion-infinite-scroll-content>

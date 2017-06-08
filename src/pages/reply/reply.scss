@@ -1,3 +1,15 @@
 page-reply {
-
+	.content {
+		border: none;
+		width: 100vw;
+		padding: 20px 15px;
+		resize: none;
+		font-size: 16px;
+	}
+	.start {
+		order: 0;
+	}
+	.title {
+		text-align: center;
+	}
 }

@@ -245,4 +245,36 @@ export class AppData {
 		}
 		return arr.slice(0, num);
 	}
+	// 发布评论
+	static publicWritingComments(wID,uID,content) {
+		let cID = AppData.comments.length;
+		let time = new Date().toLocaleString();
+		let newCom = {
+			wID: wID,
+			uID: uID,
+			cID: cID,
+			content: content,
+			time: time,
+			loveCount: 0
+		};
+		AppData.comments.push(newCom);
+		return true;
+	}
+	// 回复评论
+	static replyComments(wID,cID,fromID,toID,content) {
+		let c_cID = AppData.c_c.length;
+		let time = new Date().toLocaleString();
+		let newRep = {
+			c_cID: c_cID,
+			wID: wID,
+			cID: cID,
+			fromID: fromID,
+			toID: toID,
+			content: content,
+			time: time,
+			loveCount: 0
+		}
+		AppData.c_c.push(newRep);
+		return true;
+	}
 }

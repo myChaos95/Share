@@ -19,15 +19,16 @@ export class ComDetailPage {
   ID: 0;
   replyNum = 6;
 
-  content: any;
+  nowC_C: any;
   isReply = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private native: NativeService) {
-        this.comment = this.navParams.get('comment'); 	// 有评论人，和本用户是否点赞
+        this.comment = this.navParams.get('comment'); 	// ÓÐÆÀÂÛÈË£¬ºÍ±¾ÓÃ»§ÊÇ·ñµãÔÞ
         this.ID = 0;
   }
 
   init(e?) {
+     this.isReply = false;
       this.replyNum = 6;
       this.native.hideTabs();
       this.c_c = AppData.getC_C(this.comment.cID, this.replyNum);
@@ -74,23 +75,54 @@ export class ComDetailPage {
       NativeService.refreshComplete(e);
   }
 
-  goReplyPage() { // wID, cID,   
+  goReplyPage() { // wID, cID,toUID
       this.navCtrl.push(ReplyPage, {
           wID: this.comment.wID,
-          cID: this.comment.cID
+          cID: this.comment.cID,
+          toUID: this.comment.uID,
+          type: 0
       });
   }
 
-  reply(c) {
-      //  在第二行显示...
+  replyUser(c) {
+      this.navCtrl.push(ReplyPage, {
+          wID: this.comment.wID,
+          cID: this.comment.cID,
+          toUID: c.user.uID,
+          type: 1
+      })
+  }
+
+  reply(c,e) {
+      //  ÔÚµÚ¶þÐÐÏÔÊ¾...
+      if(e.target.className.indexOf('btn')  != -1 || e.target.className.indexOf('button-inner') != -1){
+          this.toggleReplyZan(c);
+          return;
+      }
       this.isReply = true;
       try{
           let header: any = document.querySelector('.replyToast header');
           header.style.webkitBoxOrient = 'vertical';
       }catch(e) {
+          let t;
           console.log(e);
+          clearInterval(t);
+          t = setInterval(() => {
+               let header: any = document.querySelector('.replyToast header');
+               if(header) {
+                   header.style.webkitBoxOrient = 'vertical';
+                   clearInterval(t);
+               }
+          },1);
       }
-      this.content = c.content;
+      this.nowC_C = c;
   }
+
+  hideMask() {
+      this.isReply = false;
+  }
+
+  
+
  
 }
